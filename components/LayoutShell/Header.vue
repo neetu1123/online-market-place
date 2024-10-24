@@ -102,25 +102,6 @@
                   <a href="#" class="-m-2 p-2 block font-medium text-gray-900">Sign in</a>
                 </div>
               </div>
-  
-              <div class="border-t border-gray-200 py-6 px-4 space-y-6">
-                <!-- Currency selector -->
-                <form>
-                  <div class="inline-block">
-                    <label for="mobile-currency" class="sr-only">Currency</label>
-                    <div class="-ml-2 group relative border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                      <select id="mobile-currency" name="currency" class="bg-none border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-800 focus:outline-none focus:ring-0 focus:border-transparent">
-                        <option v-for="currency in currencies" :key="currency">{{ currency }}</option>
-                      </select>
-                      <div class="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" class="w-5 h-5 text-gray-500">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
             </div>
           </TransitionChild>
         </Dialog>
@@ -128,52 +109,19 @@
   
       <header class="relative">
         <nav aria-label="Top">
-          <!-- Top navigation -->
-          <div class="bg-gray-900">
-            <div class="max-w-7xl mx-auto h-10 px-4 flex items-center justify-between sm:px-6 lg:px-8">
-              <!-- Currency selector -->
-              <form class="hidden lg:block lg:flex-1">
-                <div class="flex">
-                  <label for="desktop-currency" class="sr-only">Currency</label>
-                  <div class="-ml-2 group relative bg-gray-900 border-transparent rounded-md focus-within:ring-2 focus-within:ring-white">
-                    <select id="desktop-currency" name="currency" class="bg-none bg-gray-900 border-transparent rounded-md py-0.5 pl-2 pr-5 flex items-center text-sm font-medium text-white group-hover:text-gray-100 focus:outline-none focus:ring-0 focus:border-transparent">
-                      <option v-for="currency in currencies" :key="currency">{{ currency }}</option>
-                    </select>
-                    <div class="absolute right-0 inset-y-0 flex items-center pointer-events-none">
-                      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" class="w-5 h-5 text-gray-300">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 8l4 4 4-4" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </form>
-  
-              <p class="flex-1 text-center text-sm font-medium text-white lg:flex-none">
-                Get free delivery on orders over $100
-              </p>
-  
-              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Create an account</a>
-                <span class="h-6 w-px bg-gray-600" aria-hidden="true" />
-                <a href="#" class="text-sm font-medium text-white hover:text-gray-100">Sign in</a>
-              </div>
-            </div>
-          </div>
-  
-          <!-- Secondary navigation -->
-          <div class="bg-white">
+          <!--  navigation -->
+          <div class="bg-white border-b border-gray-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="border-b border-gray-200">
+              <div class="">
                 <div class="h-16 flex items-center justify-between">
-                  <!-- Logo (lg+) -->
-                  <div class="hidden lg:flex lg:items-center">
-                    <a href="#">
-                      <span class="sr-only">Workflow</span>
-                      <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="" />
-                    </a>
-                  </div>
-  
-               
+              <div class="space-x-6">
+                <NuxtLink to="/">
+                  Home
+                </NuxtLink>
+                <NuxtLink>
+                  Add Product
+                </NuxtLink>
+              </div>
                   <!-- Mobile menu and search (lg-) -->
                   <div class="flex-1 flex items-center lg:hidden">
                     <button type="button" class="-ml-2 bg-white p-2 rounded-md text-gray-400" @click="open = true">
@@ -203,7 +151,11 @@
                             <MagnifyingGlassIcon class="w-6 h-6" aria-hidden="true" />
                           </a>
                         </div>
-  
+                        <div class="hidden lg:flex space-x-6">
+                <NuxtLink to="/sign-up" class="text-sm font-medium">Create an account</NuxtLink>
+                <span class="h-6 w-px bg-gray-600" aria-hidden="true" />
+                <a href="#" class="text-sm font-medium">Sign in</a>
+                 </div>
                         <div class="flex">
                           <a href="#" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
                             <span class="sr-only">Account</span>

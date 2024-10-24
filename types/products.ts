@@ -1,6 +1,6 @@
 interface API {
     url: string;
-    method: "get" | "post" | "delete";
+    method: "GET" | "POST" | "DELETE";
 }
 
 interface GET {
