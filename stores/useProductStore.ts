@@ -6,7 +6,8 @@ import { fetchAPI } from '~/composables/useFetchAPI';
 export const useProductStore = defineStore('product', {
   state: () => ({
     productList: [] ,
-    productDetails: []
+    productDetails: [],
+    searchTerm: ''
   }),
   /**
    * ==========================================gettters====================================
@@ -18,6 +19,12 @@ export const useProductStore = defineStore('product', {
    * ============================================ settter ==================================
    */
   actions: {
+
+    setSearchTerm(term) {
+      console.log({term})
+       this.searchTerm = term
+    },
+
      async fetchProductList() {
         try {
             const {url} = API_Product_List.Get.productList
@@ -38,6 +45,10 @@ export const useProductStore = defineStore('product', {
             console.log(error)
         }
        },
+
+       setStoreEmpty() {
+        this.productDetails = []
+       }
   }
 })
 
