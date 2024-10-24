@@ -12,7 +12,10 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.1.5",
+    "@nuxt/image": "^1.8.1",
+    "@pinia/nuxt": "^0.5.5",
     "nuxt": "^3.13.2",
+    "pinia": "^2.2.4",
     "vue": "latest",
     "vue-router": "latest"
   },
