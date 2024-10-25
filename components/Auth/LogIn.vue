@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center min-h-screen bg-gray-100">
       <form @submit.prevent="submitForm" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 class="text-2xl font-bold mb-6">Sign Up</h1>
+        <h1 class="text-2xl font-bold mb-6">Log In</h1>
         <p class="mb-4">Please fill in this form to create an account.</p>
   
         <div v-if="formError" class="text-red-500 mb-4">{{ formError }}</div>
@@ -65,7 +65,6 @@
       </form>
     </div>
   </template>
-  
   <script setup lang="ts"> 
  const userStore = useUserStore()
       const formData = ref ({
@@ -101,14 +100,6 @@
         return !emailError && !passwordError.value && !passwordRepeatError;
       }
     async function submitForm() {
-        // if (validateForm()) {
-        //   // Submit the form (you can integrate with your backend or API here);
-          
-        //   alert('Signup successful!');
-          
-        // } else {
-        //     formError.value = 'Please fix the errors above.';
-        // }
         console.log(formData.value);
        await authentication(formData.value)
       }

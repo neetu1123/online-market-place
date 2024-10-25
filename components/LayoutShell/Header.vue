@@ -61,7 +61,8 @@
             <div class="h-16 flex items-center justify-between">
               <div class="space-x-6 hidden lg:block">
                 <NuxtLink to="/">Home</NuxtLink>
-                <NuxtLink>Add Product</NuxtLink>
+                <NuxtLink to="/product/add-new">Add Product</NuxtLink>
+                <NuxtLink to="/category">Category</NuxtLink>
                 <NuxtLink to="/shoping-cart">Shoping Cart</NuxtLink>
               </div>
 
@@ -104,7 +105,7 @@
                             <h2 class="text-lg font-semibold">Account Options</h2>
                             <div class="mt-2">
                               <button @click="logout" class="block w-full text-left p-2 hover:bg-gray-100">Logout</button>
-                              <NuxtLink to="/sign-up" class="block w-full text-left p-2 hover:bg-gray-100">
+                              <NuxtLink to="/log-in" class="block w-full text-left p-2 hover:bg-gray-100">
                                 <button
                                 @click="isUserMenuOpen =false"
                                 >
@@ -122,7 +123,7 @@
                     <div class="flow-root">
                       <a href="#" class="group -m-2 p-2 flex items-center">
                         <ShoppingCartIcon class="flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                        <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                        <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ `cartCount` }}</span>
                         <span class="sr-only">items in cart, view bag</span>
                       </a>
                     </div>
@@ -152,10 +153,13 @@
   const navigation = [
     {name: 'Home', href: '/'},
     {name: 'Add Product', href: '/'},
+    {name: 'Category', href: '/category'},
     {name: 'Shopping Cart', href: '/shoping-cart'},
   ]
   
  const userProduct =  useProductStore();
+ const cartStore = useCartStore();
+//  const {cartCount}= storeToRefs(cartStore)
  const  {searchTerm} = storeToRefs(userProduct)
 const searchInput = ref('');
    const open = ref(false)
@@ -163,7 +167,6 @@ const isUserMenuOpen = ref(false)
 
 const updateSearchTerm = (event) => {
   searchTerm.value = event.target.value;
-  console.log(searchTerm.value)
 };
 
 const token = ref(localStorage.getItem('token'))
@@ -185,27 +188,5 @@ const logout = () => {
   token.value = ""
   isUserMenuOpen.value =false
 }
-const filteredCategories = computed(() => {
-  if (!searchTerm.value) {
-    return navigation.categories;
-  }
 
-  return navigation.categories.map(category => ({
-    ...category,
-    featured: category.featured.filter(item => 
-      item.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-    ),
-    categories: category.categories.filter(item => 
-      item.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-    ),
-    collection: category.collection.filter(item => 
-      item.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-    ),
-    brands: category.brands.filter(item => 
-      item.name.toLowerCase().includes(searchTerm.value.toLowerCase())
-    )
-  })).filter(category => 
-    category.featured.length || category.categories.length || category.collection.length || category.brands.length
-  );
-});
   </script>
