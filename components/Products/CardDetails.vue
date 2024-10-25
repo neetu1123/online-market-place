@@ -101,8 +101,8 @@
               <button
                 type="submit"
                 class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                @click="addToCart()"
-              >Add to bag</button>
+                @click="addToCart(productDetails?.id)"
+              >Add to Cart</button>
             </div>
             <div class="mt-6 text-center">
               <a href="#" class="group inline-flex text-base font-medium">
@@ -134,7 +134,6 @@ const product = {
 }
 const reviews = { average: 4, totalCount: 1624 }
 
-const useCart = useCartStore()
 
 // Magnifier functionality
 const magnifierVisible = ref(false)
@@ -188,18 +187,24 @@ function hideMagnifier() {
   zoomedImageStyle.value.display = 'none'; // Hide the zoomed image
 }
 
-async function addToCart() {
-  const decodedData = decodedUserData()
-  const { sub } = decodedData
-  const payload = {
-    userId: sub,
-    date: formattedDate(),
-    products: [{ productId: 5, quantity: 1 }, { productId: 1, quantity: 5 }]
-  }
-  console.log({ payload });
+const cartStore = useCartStore();
+const {cartId} = storeToRefs(cartStore)
+    const addToCart = (id) => {
+      console.log(id);
+      
+      const productToAdd = {
+        productId: id,
+        quantity: 1,
+      };
+      console.log(productToAdd, "product to add")
+      if (cartId.value) {
+        cartStore.addToCart(productToAdd);
+      } else {
+        cartStore.createCart(productToAdd);
+      }
+    };
 
-  await useCart.Addcart(payload)
-}
+
 </script>
 
 <style scoped>
