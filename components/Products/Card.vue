@@ -36,12 +36,13 @@
               <p class="text-sm text-gray-500 mt-1">{{ product.reviewCount }} reviews</p>
             </div>
             <p class="text-base font-medium text-gray-900 mt-4">{{ product.price }}</p>
+            <NuxtLink :to="`/product/${product.id}`">
             <button
-              @click="addToCart(product)"
               class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Add to Cart
+              Add
             </button>
+          </NuxtLink>
           </div>
         </div>
       </div>
@@ -56,22 +57,6 @@ import { StarIcon } from '@heroicons/vue/24/solid';
 const productStore = useProductStore();
 const { productList, searchTerm } = storeToRefs(productStore);
 const useCart = useCartStore()
-
-
-  async function addToCart() {
-  const decodedData = decodedUserData()
-  const { sub } = decodedData
-  const payload = {
-    userId: sub,
-    date: formattedDate(),
-    products: [{ productId: 5, quantity: 1 }, { productId: 1, quantity: 5 }]
-  }
-  console.log({ payload });
-
-  await useCart.Addcart(payload)
-}
-
-
 
 function debounce(fn, delay) {
   let timeout;

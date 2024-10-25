@@ -101,7 +101,7 @@
               <button
                 type="submit"
                 class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                @click="addToCart(productDetails?.id)"
+                @click="addToCart(productDetails)"
               >Add to Cart</button>
             </div>
             <div class="mt-6 text-center">
@@ -188,20 +188,14 @@ function hideMagnifier() {
 }
 
 const cartStore = useCartStore();
-const {cartId} = storeToRefs(cartStore)
-    const addToCart = (id) => {
-      console.log(id);
-      
-      const productToAdd = {
-        productId: id,
-        quantity: 1,
-      };
-      console.log(productToAdd, "product to add")
-      if (cartId.value) {
-        cartStore.addToCart(productToAdd);
-      } else {
-        cartStore.createCart(productToAdd);
+const {cart} = storeToRefs(cartStore)
+    const addToCart = (product) => {
+      const products = {
+        product,
+        quantity: 1
       }
+      cartStore.createCart(products);
+      
     };
 
 
