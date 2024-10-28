@@ -9,13 +9,11 @@
           <div class="hidden lg:block lg:ml-6">
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <NuxtLink to="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</NuxtLink>
-              <NuxtLink to="/product/add-new" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add Product</NuxtLink>
-           
+              <NuxtLink to="/" class="text-white px-3 py-2 hover:bg-gray-700 hover:text-white rounded-md text-sm font-medium">Home</NuxtLink>
              <!-- Profile dropdown -->
              <Menu as="div" class="relative flex-shrink-0 z-40 ">
               <div>
-                <MenuButton class="bg-gray-800 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                <MenuButton class="bg-gray-800 rounded-md flex text-sm text-white">
                   <span class="sr-only">Open user menu</span>
                  
                   <span class="mt-2">category</span>
@@ -64,7 +62,9 @@
           <div class="flex items-center">
             <button type="button" class="flex-shrink-0 bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span class="sr-only">View notifications</span>
-              <span class="flex"> <NuxtLink to="/shoping-cart"> <ShoppingCartIcon class="h-6 w-6" aria-hidden="true" /></NuxtLink>{{cartCount}}
+              <span class="flex"> <NuxtLink to="/shoping-cart" class="flex"> <ShoppingCartIcon class="h-6 w-6" aria-hidden="true" />
+                <span v-if="cartCount>0">{{cartCount}}</span>
+              </NuxtLink>
               </span>
               </button>
 
@@ -114,10 +114,11 @@
             />
         </DisclosurePanel>
         <DisclosureButton
-         v-if="isCatergoryMenu"
-              class="block text-left rounded-lg py-2 pl-6 pr-3 text-sm font-medium tracking-wide text-white hover:text-black hover:bg-white"
+            as="a"
+            v-if="isCatergoryMenu"
+            class="block text-left rounded-lg py-2 pl-6 pr-3 text-sm font-medium tracking-wide text-white hover:text-black hover:bg-white"
             v-for="category in categories"
-            :herf="`/category?category=${category}`"
+            :href="`/category?category=${category}`"
               >
            {{category}}
          </DisclosureButton>
@@ -134,7 +135,13 @@
           </div>
           <button type="button" class="ml-auto flex-shrink-0 bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
             <span class="sr-only">View notifications</span>
-            <NuxtLink to="/shoping-cart"> <ShoppingCartIcon class="h-6 w-6" aria-hidden="true" /></NuxtLink>
+            <NuxtLink to="/shoping-cart"
+            class="flex"
+            >
+               <ShoppingCartIcon class="h-6 w-6" aria-hidden="true" />
+               <span v-if="cartCount>0">{{cartCount}}</span>
+              </NuxtLink>
+
           </button>
         </div>
         <div class="mt-3 px-2 space-y-1">
@@ -199,15 +206,17 @@ const updateSearchTerm = (event) => {
 };
 
 const user = computed(() => {
-  if (token.value) {
+  if(token.value) {
     const userData = decodedUserData() ;
-    return  userData// Assuming user data is stored as JSON string
+    return  userData
   }
-  return null
+ return null
+  
 })
 
 const logout = () => {
   localStorage.removeItem('token');
+  console.log(token.value, 'token value logout')
   token.value = ''
   onSuccess('User Log out!');
   navigateTo('/')

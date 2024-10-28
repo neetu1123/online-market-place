@@ -75,10 +75,6 @@
               <section aria-labelledby="summary-heading" class="mt-16 bg-gray-50 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5">
                   <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Order summary</h2>
                   <dl class="mt-6 space-y-4">
-                      <div class="flex items-center justify-between">
-                          <dt class="text-sm text-gray-600"> Subtotal </dt>
-                          <dd class="text-sm font-medium text-gray-900"> $99.00 </dd>
-                      </div>
                     
                       <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
                           <dt class="text-base font-medium text-gray-900"> Order total </dt>

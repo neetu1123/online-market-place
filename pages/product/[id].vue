@@ -15,4 +15,9 @@ onMounted(async() => {
  await productStore.fetchProductDetails(id)
 })
 
+onBeforeMount(() => {
+   productStore.setStoreEmpty()
+
+})
+
 </script>

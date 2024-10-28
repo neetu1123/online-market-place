@@ -55,8 +55,8 @@
     </div>
     <GenericDialogBox :open="isLoginSuccess"
     >
-      <div class="text-left overflow-hidden  transform transition-all sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-              <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+      <div class="text-left  transform transition-all sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+              <div class="block absolute top-0 right-0 sm:pt-4 sm:pr-4">
                 <button type="button" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="isLoginSuccess = false">
                   <span class="sr-only">Close</span>
                   <XMarkIcon class="h-6 w-6" aria-hidden="true" />
