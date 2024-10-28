@@ -1,6 +1,21 @@
 <template>
   <div class="bg-white">
-    <div class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
+    <div v-if="!Object.keys(productDetails).length" class="flex flex-col items-center justify-center h-[50vh]">
+    <div class="text-gray-500 tracking-wide space-y-5">
+      <div class="flex justify-center items-center space-x-4">
+        <span
+          class="block animate-spin border-t-2 h-20 w-20 border-l-2 border-b-2 border-r-2 border-t-primary-light rounded-full border-gray-300"
+          
+        />
+      </div>
+      <div class="flex flex-col items-center animate-pulse">
+        <p>Please wait.</p>
+        <p>It'll just take a moment.</p>
+      </div>
+    </div>
+  </div>
+
+    <div v-else class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-8">
       <!-- Product details -->
       <div class="lg:max-w-lg lg:self-end">
         <div class="mt-4">
@@ -72,7 +87,7 @@
               <!-- Size selector -->
               <RadioGroup v-model="selectedSize">
                 <RadioGroupLabel class="block text-sm font-medium text-gray-700">Size</RadioGroupLabel>
-                <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2  ">
                   <RadioGroupOption
                     as="template"
                     v-for="size in product.sizes"
@@ -81,7 +96,7 @@
                     v-slot="{ active, checked }"
                   >
                     <div
-                      :class="[active ? 'ring-2 ring-indigo-500' : '', 'relative block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none']"
+                      :class="[active ? 'ring-2 ring-indigo-500' : '', 'relative cursor-not-allowed block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none']"
                     >
                       <RadioGroupLabel as="p" class="text-base font-medium text-gray-900">{{ size.name }}</RadioGroupLabel>
                       <RadioGroupDescription as="p" class="mt-1 text-sm text-gray-500">{{ size.description }}</RadioGroupDescription>
@@ -115,17 +130,48 @@
       </div>
     </div>
   </div>
+  <GenericDialogBox :open="isOpen"
+    >
+      <div class="text-left  transform transition-all sm:align-middle max-w-lg sm:w-full sm:p-6">
+              <div class="block absolute top-0 right-0 sm:pt-4 sm:pr-4">
+                <button type="button" class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="isOpen = false">
+                  <span class="sr-only">Close</span>
+                  <XMarkIcon class="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div class="sm:flex sm:items-start">
+               
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                  <div  class="text-xl leading-6 font-medium text-gray-900 pb-2">
+                    Log In to Start Shopping
+                  </div>
+                  <div class="mt-2">
+                    <p class="text-sm text-gray-500">
+                      Please log in to add items to your cart and complete your purchase. Create an account or sign in to enjoy a seamless shopping experience.
+                    </p>
+                  </div>
+                  <button class="bg-indigo-600 border ml-32 mt-6 border-transparent rounded-md py-2 px-6  text-base font-medium text-white hover:bg-indigo-700"
+                  @click="navigateTo('/log-in')"
+                  >
+                  Go to log in page
+                </button>
+                </div>
+               
+              </div>
+            </div>
+    </GenericDialogBox>
 </template>
 
 <script setup lang="ts">
-import { CheckIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, QuestionMarkCircleIcon, StarIcon ,XMarkIcon} from '@heroicons/vue/20/solid'
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { ShieldCheckIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
 
 const productStore = useProductStore()
 const { productDetails } = storeToRefs(productStore);
-const selectedSize = ref()
+const selectedSize = ref();
+const isOpen = ref(false)
 const product = {
   sizes: [
     { name: '18L', description: 'Perfect for a reasonable amount of snacks.' },
@@ -188,8 +234,15 @@ function hideMagnifier() {
 }
 
 const cartStore = useCartStore();
-const {cart} = storeToRefs(cartStore)
+const {cart} = storeToRefs(cartStore);
+const userStore = useUserStore();
+const {token} = storeToRefs(userStore);
+const {onFailure} = useShowSnackbar()
     const addToCart = (product) => {
+      if(!token.value) {
+        isOpen.value = true;
+        return;
+      }
       const products = {
         product,
         quantity: 1

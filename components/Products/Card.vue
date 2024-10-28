@@ -1,6 +1,20 @@
 <template>
   <div class="bg-white mt-12">
-    <div class="max-w-7xl mx-auto overflow-hidden sm:px-6 lg:px-8">
+    <div v-if="!filteredProducts.length" class="flex flex-col items-center justify-center h-[50vh]">
+    <div class="text-gray-500 tracking-wide space-y-5">
+      <div class="flex justify-center items-center space-x-4">
+        <span
+          class="block animate-spin border-t-2 h-20 w-20 border-l-2 border-b-2 border-r-2 border-t-primary-light rounded-full border-gray-300"
+          
+        />
+      </div>
+      <div class="flex flex-col items-center animate-pulse">
+        <p>Please wait.</p>
+        <p>It'll just take a moment.</p>
+      </div>
+    </div>
+  </div>
+    <div v-else class="max-w-7xl mx-auto overflow-hidden sm:px-6 lg:px-8">
       <div class="flex justify-between my-2">
         <h2 class="text-3xl font-semibold">Products</h2>
 
@@ -11,7 +25,7 @@
           <PlusIcon class="ml-2 -mr-0.5 h-4 w-4" aria-hidden="true" />
         </button>
       </div> 
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-l border-t border-gray-200">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-l border-t border-gray-200 my-10">
         <div
           v-for="product in filteredProducts"
           :key="product.id"
@@ -27,7 +41,7 @@
           <div class="p-4 text-center">
             <h3 class="text-lg font-semibold text-gray-900">
               <NuxtLink :to="`/product/${product.id}`" class="hover:underline">
-                {{ product.title }}
+                {{ product.title.substring(0, 19) }}...
               </NuxtLink>
             </h3>
             <div class="mt-2">
@@ -43,7 +57,7 @@
               </div>
               <p class="text-sm text-gray-500 mt-1">{{ product.reviewCount }} reviews</p>
             </div>
-            <p class="text-base font-medium text-gray-900 mt-4">{{ product.price }}</p>
+            <p class="text-base font-medium text-gray-900 mt-4">${{ product.price }}</p>
            
           <div class="my-2 flex justify-between">
             <button class="inline-flex  items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700"
