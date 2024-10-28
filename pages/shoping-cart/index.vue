@@ -1,7 +1,26 @@
 <template>
   <div class="bg-white">
-      <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div v-if="!cart.length" class="flex flex-col items-center justify-center h-[500px] ">
+    <div  class="flex flex-col items-center bg-white shadow-lg rounded-lg p-8 w-80 text-center">
+        <!-- Shopping Cart Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l3.6-7H6.4L7 13zm0 0L5 6H3m3 7l1 5m4-5v5m6-5v5M6 6h.01M16 6h.01M9 16h6" />
+        </svg>
+        
+        <!-- Message Text -->
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Your cart is empty</h2>
+        <p class="text-gray-500 mb-6">Looks like you haven’t added any items to your cart yet.</p>
+        
+        <!-- Browse Button -->
+        <NuxtLink href="/" class="bg-blue-500 text-white font-medium py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
+            Start Shopping
+        </NuxtLink>
+    </div>
+   </div>
+
+      <div v-else class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">Shopping Cart</h1>
+      
           <form class="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16">
               <section aria-labelledby="cart-heading" class="lg:col-span-7">
                   <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
@@ -20,10 +39,30 @@
                                   </div>
                                   <div class="mt-4 sm:mt-0 sm:pr-9"> <label :for="`quantity-${productIdx}`" class="sr-only">Quantity, {{ item.product.title }}</label>
                                      <div :id="`quantity-${productIdx}`"  :name="`quantity-${productIdx}`"
-                                     class="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                         {{ item.quantity }}
+                                     class=" text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                 <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                                   <button type="button" 
+                                   class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                   @click="subProduct(item.product.id)"
+                                   >
+                                     <span class="sr-only">Previous</span>
+                                     <MinusIcon class="h-5 w-5" aria-hidden="true" />
+                                   </button>
+                                   <span class="flex items-center border-t border px-3">  {{ item.quantity }}</span>
+                                  
+                                   <button type="button" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                   @click="addProduct(item.product.id)"
+                                   >
+                                     <span class="sr-only">Next</span>
+                                     <PlusIcon class="h-5 w-5" aria-hidden="true" />
+                                   </button>
+                                 </span>
+                                                                   
                                   </div>
-                                      <div class="absolute top-0 right-0"> <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"> <span class="sr-only">Remove</span>
+                                      <div class="absolute top-0 right-0"> 
+                                        <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"
+                                        @click="deleteHandler(item.product.id)"
+                                        > <span class="sr-only">Remove</span>
                                               <XMarkIcon class="h-5 w-5" aria-hidden="true" />
                                           </button> </div>
                                   </div>
@@ -54,16 +93,26 @@
 </template>
   
   <script setup lang="ts">
-  import { CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+  import { XMarkIcon, PlusIcon, MinusIcon } from '@heroicons/vue/24/solid'
   
 const cartStore = useCartStore();
-const {cart} = storeToRefs(cartStore)
+const {cart} = storeToRefs(cartStore);
+
  const totalCount = computed(() => {
    const totalAmount = cart.value.reduce((acc,item) => acc+ (item.product.price * item.quantity ),0);
    return totalAmount
  })
-onMounted(async() => {
-console.log(cart.value, "cart value")
-  
-})
+
+
+function addProduct(id) {
+  cartStore.increaseQuantity(id);
+}
+function subProduct(id) {
+  cartStore.decreaseQuantity(id);
+}
+
+function deleteHandler(id) {
+    cartStore.deleteCartItem(id)
+}
+
   </script>

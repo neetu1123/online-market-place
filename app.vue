@@ -3,6 +3,7 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+  <NuxtSnackbar />
     <GenericDialogBox  v-if=isFirstVisit />
   </div>
 </template>

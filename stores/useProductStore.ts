@@ -21,18 +21,17 @@ export const useProductStore = defineStore('product', {
   actions: {
 
     setSearchTerm(term) {
-      console.log({term})
        this.searchTerm = term
     },
 
      async fetchProductList() {
+      if(this.productList.length) return
         try {
             const {url} = API_Product_List.Get.productList
            const response = await fetchAPI(url);
            this.productList = response;
-           console.log(response)
         }catch(error){
-            console.log(error)
+          throw error
         }
        },
        async fetchProductDetails(id: number) {
@@ -40,7 +39,6 @@ export const useProductStore = defineStore('product', {
             const {url} = API_Product_List.Get.productList
            const response = await fetchAPI(`${url}/${id}`);
            this.productDetails = response;
-           console.log(response)
         }catch(error){
             console.log(error)
         }
