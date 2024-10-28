@@ -1,4 +1,3 @@
-
 <template>
   <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
@@ -65,28 +64,34 @@
           <div class="flex items-center">
             <button type="button" class="flex-shrink-0 bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span class="sr-only">View notifications</span>
-             <NuxtLink to="/shoping-cart"> <ShoppingCartIcon class="h-6 w-6" aria-hidden="true" /></NuxtLink>
-            </button>
+              <span class="flex"> <NuxtLink to="/shoping-cart"> <ShoppingCartIcon class="h-6 w-6" aria-hidden="true" /></NuxtLink>{{cartCount}}
+              </span>
+              </button>
 
             <!-- Profile dropdown -->
             <Menu as="div" class="ml-4 relative flex-shrink-0 z-40">
               <div>
                 <MenuButton class="bg-gray-800 rounded-full flex text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                   <span class="sr-only">Open user menu</span>
-                  <h1 v-if="user">{{ user.user.charAt(0) }}</h1>
+                  <h1 v-if="user" class="profile-circle bg-blue-500 text-white flex items-center justify-center font-bold uppercase">{{ user.user.charAt(0) }}</h1>
                   <span v-else><UserCircleIcon  class="h-6" /></span>
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                 <MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your Profile</a>
+                
+                  <MenuItem v-slot="{ active }" v-if="user">
+                    <NuxtLink to="/admin" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Admin</NuxtLink>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                    <a href="/log-in" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Log in</a>
+                  <MenuItem v-slot="{ active }"
+                  v-if="!user"
+                  >
+                    <NuxtLink to="/log-in" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Log in</NuxtLink>
                   </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                    <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Log out</a>
+                  <MenuItem v-slot="{ active }"
+                  v-else
+                  >
+                    <button class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" @click="logout" >Log out</button>
                   </MenuItem>
                 </MenuItems>
               </transition>
@@ -121,7 +126,7 @@
       <div class="pt-4 pb-3 border-t border-gray-700">
         <div class="flex items-center px-5">
           <div class="flex-shrink-0">
-            <h1 v-if="user">{{ user.user.charAt(0) }}</h1>
+            <h1 v-if="user" class="profile-circle bg-blue-500 text-white flex items-center justify-center font-bold uppercase">{{ user.user.charAt(0) }}</h1>
             <span v-else><UserCircleIcon  class="h-8 text-white" /></span>
           </div>
           <div class="ml-3"  v-if="user">
@@ -133,9 +138,24 @@
           </button>
         </div>
         <div class="mt-3 px-2 space-y-1">
-          <DisclosureButton as="a" href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</DisclosureButton>
-          <DisclosureButton as="a" href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Log in</DisclosureButton>
-          <DisclosureButton as="a" href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Log out</DisclosureButton>
+          <DisclosureButton as="a" 
+          v-if="user"
+          href="/admin" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+          >
+            Admin
+          </DisclosureButton>
+          <DisclosureButton as="a" 
+          v-if="!user"
+          href="/log-in" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+          >
+            Log in
+          </DisclosureButton>
+          <DisclosureButton
+          v-else
+          as="a" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+          @click="logout"
+          >Log out
+        </DisclosureButton>
         </div>
       </div>
     </DisclosurePanel>
@@ -162,30 +182,50 @@ import { BellIcon, Bars3Icon, XMarkIcon, ShoppingCartIcon , UserCircleIcon,Chevr
   ]
   const isCatergoryMenu = ref(false)
  const userProduct =  useProductStore();
+ const cartStore =  useCartStore();
+ const {cart} = storeToRefs(cartStore)
  const  {searchTerm} = storeToRefs(userProduct)
 const searchInput = ref('');
    const open = ref(false)
 const isUserMenuOpen = ref(false)
+const userStore = useUserStore();
+const {token} = storeToRefs(userStore)
+const {onFailure, onSuccess} = useShowSnackbar()
+
+const cartCount = computed(() => cartStore.getCartItems)
 
 const updateSearchTerm = (event) => {
   searchTerm.value = event.target.value;
 };
 
-const token = ref(localStorage.getItem('token'))
 const user = computed(() => {
   if (token.value) {
-    const userData = decodedUserData() 
+    const userData = decodedUserData() ;
     return  userData// Assuming user data is stored as JSON string
   }
   return null
 })
 
-
-
 const logout = () => {
   localStorage.removeItem('token');
-  token.value = ""
-  isUserMenuOpen.value =false
+  token.value = ''
+  onSuccess('User Log out!');
+  navigateTo('/')
 }
 
   </script>
+  <style scoped>
+.profile-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;               
+    height: 25px;
+    border-radius: 50%;       
+    background-color: #4A90E2;
+    color: white;            
+    font-size: 20px;          
+    font-weight: bold;
+    text-transform: uppercase; 
+}
+</style>

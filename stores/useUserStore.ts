@@ -2,12 +2,12 @@ import { USER_API } from '@/types/users';
 import { User_Api } from '~/api/userAPI';
 import { defineStore } from "pinia";
 import { fetchAPI } from '~/composables/useFetchAPI';
+import { Auth_API } from '~/api/authAPI';
 
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    productList: [] ,
-    productDetails: []
+    token: ''
   }),
   /**
    * ==========================================gettters====================================
@@ -19,16 +19,18 @@ export const useUserStore = defineStore('user', {
    * ============================================ settter ==================================
    */
   actions: {
-     async authentication(data) {
-        try {
-            const {url, method} = User_Api.Post.user
-           const response = await fetchAPI(url, method, data);
-           
-           console.log(response)
-        }catch(error){
-            console.log(error)
-        }
-       },
+     async authentication(userData) {
+      try {
+        const {url, method} = Auth_API.Post.auth
+          const response=await fetchAPI(url, method, userData);
+          const {token} = response
+          localStorage.setItem('token',token);
+          this.token = token;
+         return  response;
+      }catch(error) {
+        throw error;
+      }
+  },
        
   }
 })

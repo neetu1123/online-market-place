@@ -4,7 +4,15 @@ export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
-  modules: ["@pinia/nuxt", '@nuxt/image'],
+  plugins: ["~/plugins/snackbar"],
+  modules: ["@pinia/nuxt", '@nuxt/image','nuxt-snackbar'],
+  snackbar: {
+    top: true,
+    right: true,
+    shadow: true,
+    border: "right",
+    duration: 8000,
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
