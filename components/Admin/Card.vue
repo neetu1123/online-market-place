@@ -6,9 +6,9 @@
           <div class="-my-2">
             <div class="box-content py-2 relative">
               <div
-                class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-2"
+                class="grid gap-8 sm:grid-cols-2 mx-2"
               >
-                <a
+                <NuxtLink
                   v-for="category in categories"
                   :key="category.name"
                   :href="category.href"
@@ -28,7 +28,7 @@
                   <span class="relative mt-auto text-center text-xl font-bold text-white">
                     {{ category.name }}
                   </span>
-                </a>
+                </NuxtLink>
               </div>
             </div>
           </div>
