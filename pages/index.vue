@@ -163,7 +163,7 @@
                     Up to 50% off.
                   </h2>
                   <div class="mt-6 text-base">
-                    <a href="#" class="font-semibold text-black">Shop the sale<span aria-hidden="true"> &rarr;</span></a>
+                    <NuxtLink to="/product" class="font-semibold text-black">Shop the sale<span aria-hidden="true"> &rarr;</span></NuxtLink>
                   </div>
                 </div>
 
