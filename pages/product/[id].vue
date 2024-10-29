@@ -9,10 +9,9 @@ import { useProductStore } from "@/stores/useProductStore";
 const route = useRoute();
 const {id} = route.params
 
-const productStore = useProductStore()
+const productStore = useProductStore();
 onMounted(async() => {
-    // console.log(route.params, id)
- await productStore.fetchProductDetails(id)
+ await productStore.fetchProductDetails(id as string)
 })
 
 onBeforeMount(() => {

@@ -4,7 +4,7 @@
       <NuxtPage />
     </NuxtLayout>
   <NuxtSnackbar />
-    <GenericDialogBox v-if=!isFirstVisit :open="isOpen"
+    <GenericDialogBox v-if="isFirstVisit && isOpen" :open="isOpen"
     >
       <div class="text-left  transform transition-all sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
               <div class="block absolute top-0 right-0 sm:pt-4 sm:pr-4">
@@ -31,13 +31,16 @@
   </div>
 </template>
 <script setup lang="ts">
+import {XMarkIcon} from '@heroicons/vue/24/solid'
 const isFirstVisit = ref(false);
 const isOpen = ref(false)
  onMounted(()  => {
-    if (!localStorage.getItem('visited')) {
-      isFirstVisit.value = true;
-      isOpen.value = true
-      localStorage.setItem('visited', 'true'); // Set a flag to remember user's visit
+   if (!localStorage.getItem('visited')) {
+     isFirstVisit.value = true;
+     isOpen.value = true
+     localStorage.setItem('visited', 'true'); // Set a flag to remember user's visit
+    }else {
+      isOpen.value = false
     }
   })
 </script>

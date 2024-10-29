@@ -26,7 +26,7 @@
           <h2 id="information-heading" class="sr-only">Product information</h2>
 
           <div class="flex items-center">
-            <p class="text-lg text-gray-900 sm:text-xl">{{ productDetails.price }}</p>
+            <p class="text-lg text-gray-900 sm:text-xl">${{ productDetails.price }}</p>
 
             <div class="ml-4 pl-4 border-l border-gray-300">
               <h2 class="sr-only">Reviews</h2>
@@ -36,13 +36,13 @@
                     <StarIcon
                       v-for="rating in [0, 1, 2, 3, 4]"
                       :key="rating"
-                      :class="[productDetails.rating > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0']"
+                      :class="[productDetails.rating.rate > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0']"
                       aria-hidden="true"
                     />
                   </div>
                   <p class="sr-only">{{ reviews.average }} out of 5 stars</p>
                 </div>
-                <p class="ml-2 text-sm text-gray-500">{{ productDetails.rating }} reviews</p>
+                <p class="ml-2 text-sm text-gray-500">{{ productDetails.rating.count }} reviews</p>
               </div>
             </div>
           </div>
@@ -62,18 +62,14 @@
       <div class="mt-10 lg:mt-0 lg:col-start-2 lg:row-span-2 lg:self-center relative max-w-md">
         <div class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden">
           <div
-            class="relative w-full h-full cursor-pointer"
-            @mousemove="showMagnifier"
-            @mouseleave="hideMagnifier"
+            class="relative w-[70%] h-750%] cursor-pointer"
           >
             <NuxtImg
               :src="productDetails.image"
               :alt="productDetails.imageAlt"
               class="w-full h-full object-center object-cover"
             />
-            <div v-if="magnifierVisible" class="magnifier" :style="magnifierStyle"></div>
           </div>
-          <div v-if="magnifierVisible" class="zoomed-image" :style="zoomedImageStyle"></div>
         </div>
       </div>
 
@@ -89,14 +85,14 @@
                 <RadioGroupLabel class="block text-sm font-medium text-gray-700">Size</RadioGroupLabel>
                 <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2  ">
                   <RadioGroupOption
-                    as="template"
                     v-for="size in product.sizes"
                     :key="size.name"
-                    :value="size"
                     v-slot="{ active, checked }"
+                    as="template"
+                    :value="size"
                   >
                     <div
-                      :class="[active ? 'ring-2 ring-indigo-500' : '', 'relative cursor-not-allowed block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none']"
+                      :class="[active ? 'ring-2 ring-indigo-500' : '', 'relative block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none']"
                     >
                       <RadioGroupLabel as="p" class="text-base font-medium text-gray-900">{{ size.name }}</RadioGroupLabel>
                       <RadioGroupDescription as="p" class="mt-1 text-sm text-gray-500">{{ size.description }}</RadioGroupDescription>
@@ -113,7 +109,15 @@
               </a>
             </div>
             <div class="mt-10">
+            
               <button
+              v-if="checkItemInCart"
+                type="submit"
+                class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+                @click="navigateTo('/shoping-cart')"
+              >Go to Cart</button>
+              <button
+              v-else
                 type="submit"
                 class="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
                 @click="addToCart(productDetails)"
@@ -150,7 +154,8 @@
                       Please log in to add items to your cart and complete your purchase. Create an account or sign in to enjoy a seamless shopping experience.
                     </p>
                   </div>
-                  <button class="bg-indigo-600 border ml-32 mt-6 border-transparent rounded-md py-2 px-6  text-base font-medium text-white hover:bg-indigo-700"
+                  <button
+                  class="bg-indigo-600 border ml-32 mt-6 border-transparent rounded-md py-2 px-6  text-base font-medium text-white hover:bg-indigo-700"
                   @click="navigateTo('/log-in')"
                   >
                   Go to log in page
@@ -167,9 +172,15 @@ import { CheckIcon, QuestionMarkCircleIcon, StarIcon ,XMarkIcon} from '@heroicon
 import { RadioGroup, RadioGroupDescription, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { ShieldCheckIcon } from '@heroicons/vue/24/outline'
 import { ref } from 'vue'
+import type { Product } from '~/types/products';
 
-const productStore = useProductStore()
+const productStore = useProductStore();
+
 const { productDetails } = storeToRefs(productStore);
+const cartStore = useCartStore();
+const {cart}= storeToRefs(cartStore);
+const userStore = useUserStore();
+const {token} = storeToRefs(userStore);
 const selectedSize = ref();
 const isOpen = ref(false)
 const product = {
@@ -179,66 +190,12 @@ const product = {
   ],
 }
 const reviews = { average: 4, totalCount: 1624 }
+const route = useRoute();
+const {id} = route.params;
 
+const checkItemInCart = computed(() => cart.value.find(item => item.product.id == id ))
 
-// Magnifier functionality
-const magnifierVisible = ref(false)
-const magnifierStyle = ref({
-  top: '0',
-  left: '0',
-  background: 'url(' + productDetails.image + ') no-repeat',
-  backgroundSize: '200%',
-  width: '100px', // Set the width of the magnifier
-  height: '100px', // Set the height of the magnifier
-  position: 'absolute',
-  border: '2px solid #000',
-  borderRadius: '50%',
-  pointerEvents: 'none',
-  transform: 'translate(-50%, -50%)',
-})
-
-// Style for the zoomed image
-const zoomedImageStyle = ref({
-  width: '200px', // Width of the zoomed-in image
-  height: '200px', // Height of the zoomed-in image
-  background: `url(${productDetails.image}) no-repeat`,
-  backgroundSize: '200%', // Adjust this based on your zoom level
-  position: 'absolute',
-  display: 'none', // Initially hidden
-  border: '2px solid #000',
-  borderRadius: '8px',
-  zIndex: 5,
-})
-
-function showMagnifier(event) {
-  magnifierVisible.value = true;
-  const { offsetX, offsetY } = event;
-  const { width, height } = event.target.getBoundingClientRect();
-
-  magnifierStyle.value.left = `${offsetX}px`;
-  magnifierStyle.value.top = `${offsetY}px`;
-
-  // Adjust background position based on mouse position
-  magnifierStyle.value.backgroundPosition = `${(offsetX / width) * 100}% ${(offsetY / height) * 100}%`;
-
-  // Show the zoomed image
-  zoomedImageStyle.value.display = 'block';
-  zoomedImageStyle.value.backgroundPosition = `${(offsetX / width) * 100}% ${(offsetY / height) * 100}%`;
-  zoomedImageStyle.value.top = `${event.clientY - 100}px`; // Adjust position of zoomed image
-  zoomedImageStyle.value.left = `${event.clientX + 10}px`; // Adjust position of zoomed image
-}
-
-function hideMagnifier() {
-  magnifierVisible.value = false;
-  zoomedImageStyle.value.display = 'none'; // Hide the zoomed image
-}
-
-const cartStore = useCartStore();
-const {cart} = storeToRefs(cartStore);
-const userStore = useUserStore();
-const {token} = storeToRefs(userStore);
-const {onFailure} = useShowSnackbar()
-    const addToCart = (product) => {
+    const addToCart = (product: Product) => {
       if(!token.value) {
         isOpen.value = true;
         return;
@@ -250,17 +207,6 @@ const {onFailure} = useShowSnackbar()
       cartStore.createCart(products);
       
     };
-
-
 </script>
 
-<style scoped>
-.magnifier {
-  z-index: 10;
-  pointer-events: none;
-}
-.zoomed-image {
-  z-index: 5;
-  position: absolute; /* Ensure it’s positioned correctly */
-}
-</style>
+

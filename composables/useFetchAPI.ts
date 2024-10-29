@@ -1,17 +1,15 @@
 
 type method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' ;
 export async  function fetchAPI(url: string, method?: method, data?: null) {
-  // console.log(JSON.stringify(data))
     const options = {
         method, // GET, POST, PUT, DELETE
         headers: {
           "Content-Type": "application/json"
         },
       };
-      if (data && ['POST', 'PUT', 'DELETE'].includes(method)) {
+      if (data && ['POST', 'PUT', 'DELETE'].includes(method as method)) {
         options.body = JSON.stringify(data);
       }
-      console.log({options});
       
       try {
         const response = await fetch(url, options);
@@ -32,8 +30,12 @@ export async  function fetchAPI(url: string, method?: method, data?: null) {
       }
 }
 
-
-function parseJwt (token) {
+/**
+ * Function for parse jswt
+ * @param token 
+ */
+function parseJwt (token: string) {
+  const {onFailure}= useShowSnackbar();
   try {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -43,12 +45,15 @@ function parseJwt (token) {
 
     return JSON.parse(jsonPayload); // Parse and return the token's payload
   } catch (error) {
-    console.error('Invalid token', error);
+    onFailure('Invalid token')
     return null;
   }
 }
-
+/**
+ * Function for decoded user data
+ */
 export function decodedUserData() {
+  const {onFailure}= useShowSnackbar();
   const token = localStorage.getItem('token'); 
  
   if(!token) return; 
@@ -56,6 +61,6 @@ export function decodedUserData() {
   const decodedToken = parseJwt(token); // Decode the token
   return decodedToken;
 } else {
-  console.error('No token found');
+  onFailure('No token found')
 }
 }

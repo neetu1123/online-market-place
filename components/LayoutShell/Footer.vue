@@ -66,7 +66,7 @@
             </p>
             <form class="mt-4 sm:flex sm:max-w-md">
               <label for="email-address" class="sr-only">Email address</label>
-              <input type="email" name="email-address" id="email-address" autocomplete="email" required="" class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-400" placeholder="Enter your email" />
+              <input id="email-address" type="email" name="email-address" autocomplete="email" class="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:placeholder-gray-400" placeholder="Enter your email" >
               <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
                 <button type="submit" class="w-full bg-indigo-600 flex items-center justify-center border border-transparent rounded-md py-2 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   Subscribe
@@ -122,6 +122,7 @@
       {
         name: 'Facebook',
         href: '#',
+        // eslint-disable-next-line vue/one-component-per-file
         icon: defineComponent({
           render: () =>
             h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -137,6 +138,7 @@
       {
         name: 'Instagram',
         href: '#',
+        // eslint-disable-next-line vue/one-component-per-file
         icon: defineComponent({
           render: () =>
             h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -152,6 +154,7 @@
       {
         name: 'Twitter',
         href: '#',
+        // eslint-disable-next-line vue/one-component-per-file
         icon: defineComponent({
           render: () =>
             h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -165,6 +168,7 @@
       {
         name: 'GitHub',
         href: '#',
+        // eslint-disable-next-line vue/one-component-per-file
         icon: defineComponent({
           render: () =>
             h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
@@ -180,6 +184,7 @@
       {
         name: 'Dribbble',
         href: '#',
+        // eslint-disable-next-line vue/one-component-per-file
         icon: defineComponent({
           render: () =>
             h('svg', { fill: 'currentColor', viewBox: '0 0 24 24' }, [
