@@ -43,12 +43,12 @@
                     v-for="rating in [0, 1, 2, 3, 4]"
                     :key="rating"
                     :class="[
-                      product.rating.rate > rating ? 'text-yellow-400' : 'text-gray-200',
+                     product?.rating && product?.rating.rate > rating ? 'text-yellow-400' : 'text-gray-200',
                       'h-5 w-5'
                     ]"
                   />
                 </div>
-                <p class="text-sm text-gray-500 mt-1">{{ product.reviewCount }} reviews</p>
+                <p class="text-sm text-gray-500 mt-1">{{ product.rating?.count }} reviews</p>
               </div>
               <p class="text-base font-medium text-gray-900 mt-4">${{ product.price }}</p>
             </div>
@@ -62,10 +62,9 @@
   
 <script setup lang="ts">
 import { useProductStore } from "@/stores/useProductStore";
-import { StarIcon, PlusIcon } from '@heroicons/vue/24/solid';
+import { StarIcon } from '@heroicons/vue/24/solid';
 import type { ProductDetail } from '~/types/products';
-const userStore = useUserStore();
-const {token}= storeToRefs(userStore)
+
 const productStore = useProductStore();
 const { productList, searchTerm } = storeToRefs(productStore);
 const filteredProducts = ref<ProductDetail[]>([]);

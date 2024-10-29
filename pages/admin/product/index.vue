@@ -51,12 +51,12 @@
                     v-for="rating in [0, 1, 2, 3, 4]"
                     :key="rating"
                     :class="[
-                      product.rating.rate > rating ? 'text-yellow-400' : 'text-gray-200',
+                      product?.rating && product.rating.rate > rating ? 'text-yellow-400' : 'text-gray-200',
                       'h-5 w-5'
                     ]"
                   />
                 </div>
-                <p class="text-sm text-gray-500 mt-1">{{ product.reviewCount }} reviews</p>
+                <p class="text-sm text-gray-500 mt-1">{{ product.rating?.count }} reviews</p>
               </div>
               <p class="text-base font-medium text-gray-900 mt-4">${{ product.price }}</p>
              

@@ -44,7 +44,7 @@
                                    <button
                                    type="button" 
                                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                                   @click="subQuantity(item.product.id)"
+                                   @click="subQuantity(item.product.id as string)"
                                    >
                                      <span class="sr-only">Previous</span>
                                      <MinusIcon class="h-5 w-5" aria-hidden="true" />
@@ -53,7 +53,7 @@
                                   
                                    <button
                                    type="button" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                                   @click="addQuantity(item.product.id)"
+                                   @click="addQuantity(item.product.id as string)"
                                    >
                                      <span class="sr-only">Next</span>
                                      <PlusIcon class="h-5 w-5" aria-hidden="true" />
@@ -64,7 +64,7 @@
                                       <div class="absolute top-0 right-0"> 
                                         <button
                                         type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"
-                                        @click="deleteHandler(item.product.id)"
+                                        @click="deleteHandler(item.product.id as string)"
                                         > <span class="sr-only">Remove</span>
                                               <XMarkIcon class="h-5 w-5" aria-hidden="true" />
                                           </button> </div>

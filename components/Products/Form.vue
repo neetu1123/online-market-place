@@ -85,9 +85,15 @@ const categories = [
 const route = useRoute();
 const id = route.params.id as string;
 const isEditMode = ref(route.path.includes('edit'));
-
+type ErrorType = {
+  category?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  price?: string;
+};
 // Error tracking
-const errors = ref({
+const errors = ref<ErrorType>({
     category: '',
     title: '',
     description: '',
@@ -99,20 +105,16 @@ const errors = ref({
  * Function to validate the form
  */
 function validateForm() {
-    let isValid = true;
-    errors.value = {
-        category: productDetails.value.category ? '' : 'Category is required',
-        title: productDetails.value.title ? '' : 'Name is required',
-        description: productDetails.value.description ? '' : 'Description is required',
-        image: productDetails.value.image ? '' : 'Image URL is required',
-        price: productDetails.value.price ? '' : 'Price is required'
-    };
-    
-    for (const key in errors.value) {
-        if (errors.value[key]) isValid = false;
-    }
+    const errorKeys = ['category', 'title', 'description', 'image', 'price'] as const;
 
-    return isValid;
+    let isValid = true;
+    errorKeys.forEach(key => {
+    errors.value[key] = productDetails.value[key] ? '' : `${key.charAt(0).toUpperCase() + key.slice(1)} is required`;
+  });
+  
+  isValid = !errorKeys.some(key => errors.value[key]);
+  
+  return isValid;
 }
 
 function handleSubmit() {
