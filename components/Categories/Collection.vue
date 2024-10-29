@@ -11,7 +11,7 @@
           class="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden cursor-pointer sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2"
           @click="navigateTo(`/category?category=women's clothing`)"
           >
-            <img src="/menand women.webp" alt="Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee." class="object-center object-cover hover:opacity-75" >
+            <img src="/menand women.webp" alt="Women's dress" class="object-center object-cover hover:opacity-75" >
             <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50" />
             <div class="p-6 flex items-end">
               <div>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-full">
-            <img src="/jwellery.avif" alt="Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters." class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full" >
+            <img src="/jwellery.avif" alt="Jwelary" class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full" >
             <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0" />
             <div class="p-6 flex items-end sm:absolute sm:inset-0">
               <div>
@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-full">
-            <img src="/electronic.webp" alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk." class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full" >
+            <img src="/electronic.webp" alt="Electronic" class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full" >
             <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0" />
             <div class="p-6 flex items-end sm:absolute sm:inset-0">
               <div>

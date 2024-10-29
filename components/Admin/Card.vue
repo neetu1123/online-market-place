@@ -17,7 +17,7 @@
                   <span aria-hidden="true" class="absolute inset-0">
                     <img
                       :src="category.imageSrc"
-                      alt=""
+                      :alt="category.name"
                       class="w-full h-full object-center object-cover"
                     >
                   </span>
