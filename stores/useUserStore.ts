@@ -7,15 +7,12 @@ import type {FormData} from "@/types/users"
 export const useUserStore = defineStore('user', {
   state: () => ({
     token: '',
-    isAdmin: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXIiOiJqb2huZCIsImlhdCI6MTczMDE5NTUwN30.vRx3XPBmgZphAu2YRPnYNeDNnN_0vWHKPqBBuYd6UlQ',
   }),
   /**
    * ==========================================gettters====================================
    */
   getters: {
-   isAdmin(state) {
-    return (state.token === state.isAdmin)
-   }
+   
   },
   /**
    * ============================================ settter ==================================

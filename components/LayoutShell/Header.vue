@@ -224,6 +224,7 @@ const logout = () => {
   localStorage.removeItem('token');
   token.value = ''
   onSuccess('User Log out!');
+  cartStore.setStoreEmpty()
   navigateTo('/')
 }
 /**

@@ -64,7 +64,7 @@ export const useProductStore = defineStore('product', {
         Object.keys(this.productDetails).forEach(key => {
           this.productDetails[key] = '';
         });
-       }
+       },
   }
 })
 

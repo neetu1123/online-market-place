@@ -77,6 +77,13 @@ export const useCartStore = defineStore('cart', {
      this.cart = this.cart.filter(item => item.product.id !== productId);
      onSuccess('Successfully Item Deletded')
 
+    },
+    /**
+     * Store empty
+     */
+    setStoreEmpty() {
+    this.cart = [] ;
+    this.cartId = null;
     }
   },
 })

@@ -1,57 +1,194 @@
 <template>
-    <div class="bg-white">
-      <main>
-        <div class="relative isolate">
-          <svg class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]" aria-hidden="true">
-            <defs>
-              <pattern id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
-                <path d="M.5 200V.5H200" fill="none" />
-              </pattern>
-            </defs>
-            <svg x="50%" y="-1" class="overflow-visible fill-gray-50">
-              <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" stroke-width="0" />
-            </svg>
-            <rect width="100%" height="100%" stroke-width="0" fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)" />
-          </svg>
-          <div class="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48" aria-hidden="true">
-            <div class="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30" style="clip-path: polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)" />
+  <div class="bg-white">
+    <!-- Mobile menu -->
+   
+    <header class="relative overflow-hidden">
+      <!-- Hero section -->
+      <div class="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-52 lg:pb-48">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:static">
+          <div class="sm:max-w-lg">
+            <h1 class="text-4xl font font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+              Summer styles are finally here
+            </h1>
+            <p class="mt-4 text-xl text-gray-500">This year, our new summer collection will shelter you from the harsh elements of a world that doesn't care if you live or die.</p>
           </div>
-          <div class="overflow-hidden">
-            <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
-              <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
-                <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                  <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">We’re changing the way people connect.</h1>
-                  <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id pariatur in voluptate cillum.</p>
-                  <div class="mt-10 flex items-center gap-x-6">
-                    <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Live demo <span aria-hidden="true">→</span></a>
+          <div>
+            <div class="mt-10 sm:mt-52">
+              <!-- Decorative image grid -->
+              <div aria-hidden="true" class="pointer-events-none lg:absolute lg:inset-y-0 lg:max-w-7xl lg:mx-auto lg:w-full">
+                <div class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
+                  <div class="flex items-center space-x-6 lg:space-x-8">
+                    <div class="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
+                      <div class="w-44 h-64 rounded-lg overflow-hidden sm:opacity-0 lg:opacity-100">
+                        <NuxtImg src="/jwellary_image.jpeg" alt="Jwelary" class="w-full h-full object-center object-cover" />
+                      </div>
+                      <div class="w-44 h-64 rounded-lg overflow-hidden">
+                        <NuxtImg src="/laptop_images.jpeg" alt="Laptop" class="w-full h-full object-center object-cover" /></div>
+                    </div>
+                    <div class="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
+                      <div class="w-44 h-64 rounded-lg overflow-hidden">
+                        <NuxtImg src="/mens_dress.jpeg" alt="Men's cloth" class="w-full h-full object-center object-cover" /></div>
+                      <div class="w-44 h-64 rounded-lg overflow-hidden">
+                        <NuxtImg src="/mobile.webp" alt="Mobile" class="w-full h-full object-center object-cover" /></div>
+                      <div class="w-44 h-64 rounded-lg overflow-hidden">
+                        <NuxtImg src="/women_dress.webp" alt="Women's dress" class="w-full h-full object-center object-cover" /></div>
+                    </div>
+                    <div class="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
+                      <div class="w-44 h-64 rounded-lg overflow-hidden">
+                        <NuxtImg src="/women_2.webp" alt="Women's dress" class="w-full h-full object-center object-cover" /></div>
+                      <div class="w-44 h-64 rounded-lg overflow-hidden">
+                        <NuxtImg src="/men_3.jpg" alt="Men's dress" class="w-full h-full object-center object-cover" /></div>
+                    </div>
                   </div>
                 </div>
-                <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-                  <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                    <div class="relative">
-                      <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg" >
-                      <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
+              </div>
+
+              <NuxtLink to="/product" class="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">Shop Collection</NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Category section -->
+      <section aria-labelledby="category-heading" class="bg-gray-50">
+        <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+          <div class="sm:flex sm:items-baseline sm:justify-between">
+            <h2 id="category-heading" class="text-2xl font-extrabold tracking-tight text-gray-900">Shop by Category</h2>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
+            <div class="group aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
+              <NuxtLink href="/category?category=women's clothing">
+              <NuxtImg src="/women_4.jpg" alt="Women's cloth" class="object-center object-cover group-hover:opacity-75" >
+              <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50" />
+              <div class="p-6 flex items-end">
+                <div>
+                  <h3 class="font-semibold text-black">
+                      New Arrivals
+                    </h3>
+                    <p aria-hidden="true" class="mt-1 text-sm text-black">
+                      Shop now
+                    </p>
                   </div>
-                  <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                    <div class="relative">
-                      <img src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg" >
-                      <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
-                    <div class="relative">
-                      <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg" >
-                      <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                    </div>
+                </div>
+              </nuxtimg></NuxtLink>
+            </div>
+            <div class="group hidden sm:block aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-full">
+              <NuxtImg src="/laptop_2.jpeg" alt="Laptop" class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full" >
+              <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0" />
+              <div class="p-6 flex items-end sm:absolute sm:inset-0">
+                <div>
+                  <h3 class="font-semibold text-white">
+                    <NuxtLink to="/category?category=electronics">
+                      <span class="absolute inset-0" />
+                      Accessories
+                    </NuxtLink>
+                  </h3>
+                  <p aria-hidden="true" class="mt-1 text-sm text-white">
+                    Shop now
+                  </p>
+                </div>
+              </div>
+            </nuxtimg></div>
+            <div class="group hidden sm:block aspect-w-2 aspect-h-1 rounded-lg overflow-hidden sm:relative sm:aspect-none sm:h-full">
+              <NuxtImg src="/bangel_1.webp" alt="Diamond Bangel" class="object-center object-cover group-hover:opacity-75 sm:absolute sm:inset-0 sm:w-full sm:h-full" >
+              <div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0" />
+              <div class="p-6 flex items-end sm:absolute sm:inset-0">
+                <div>
+                  <h3 class="font-semibold text-white">
+                    <NuxtLink to="/category?category=jewelery">
+                      <span class="absolute inset-0" />
+                      Workspace
+                    </NuxtLink>
+                  </h3>
+                  <p aria-hidden="true" class="mt-1 text-sm text-white">
+                    Shop now
+                  </p>
+                </div>
+              </div>
+            </nuxtimg></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured section -->
+      <section aria-labelledby="cause-heading">
+        <div class="relative bg-gray-800 py-32 px-6 sm:py-40 sm:px-12 lg:px-16">
+          <div class="absolute inset-0 overflow-hidden">
+            <NuxtImg src="/background_image.avif" alt="background image" class="w-full h-full object-center object-cover" /></div>
+          <div aria-hidden="true" class="absolute inset-0 bg-gray-900 bg-opacity-50" />
+          <div class="relative max-w-3xl mx-auto flex flex-col items-center text-center">
+            <h2 id="cause-heading" class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Long-term thinking</h2>
+            <p class="mt-3 text-xl text-white">We're committed to responsible, sustainable, and ethical manufacturing. Our small-scale approach allows us to focus on quality and reduce our impact. We're doing our best to delay the inevitable heat-death of the universe.</p>
+            <a  class="mt-8 w-full block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto">Read our story</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Favorites section -->
+      <section aria-labelledby="favorites-heading">
+        <div class="max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+          <div class="sm:flex sm:items-baseline sm:justify-between">
+            <h2 id="favorites-heading" class="text-2xl font-extrabold tracking-tight text-gray-900">Our Favorites</h2>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-y-0 sm:gap-x-6 lg:gap-x-8">
+            <div v-for="favorite in favorites" :key="favorite.id" class="group relative">
+              <div class="w-full h-96 rounded-lg overflow-hidden group-hover:opacity-75 sm:h-auto sm:aspect-w-2 sm:aspect-h-3">
+                <NuxtImg :src="favorite.imageSrc" :alt="favorite.imageAlt" class="w-full h-full object-center object-cover" /></div>
+              <h3 class="mt-4 text-base font-semibold text-gray-900">
+                <NuxtLink :to="favorite.href">
+                  <span class="absolute inset-0" />
+                  {{ favorite.name }}
+                </NuxtLink>
+              </h3>
+              <p class="mt-1 text-sm text-gray-500">{{ favorite.price }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA section -->
+      <section aria-labelledby="sale-heading">
+        <div class="pt-32 overflow-hidden sm:pt-14">
+          <div class="bg-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="relative pt-48 pb-16 sm:pb-24">
+                <div>
+                  <h2 id="sale-heading" class="text-4xl font-extrabold tracking-tight text-black md:text-5xl">
+                    Final Stock.
+                    <br >
+                    Up to 50% off.
+                  </h2>
+                  <div class="mt-6 text-base">
+                    <a href="#" class="font-semibold text-black">Shop the sale<span aria-hidden="true"> &rarr;</span></a>
                   </div>
-                  <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                    <div class="relative">
-                      <img src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg" >
-                      <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                </div>
+
+                <div class="absolute -top-32 left-1/2 transform -translate-x-1/2 sm:top-6 sm:translate-x-0">
+                  <div class="ml-24 flex space-x-6 min-w-max sm:ml-3 lg:space-x-8">
+                    <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
+                      <div class="flex-shrink-0">
+                        <NuxtImg class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" src="/women_4.jpg" alt="women's dress" /></div>
+
+                      <div class="mt-6 flex-shrink-0 sm:mt-0">
+                        <NuxtImg class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" src="/women_2.webp" alt="women's dress" /></div>
                     </div>
-                    <div class="relative">
-                      <img src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg" >
-                      <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+                    <div class="flex space-x-6 sm:-mt-20 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
+                      <div class="flex-shrink-0">
+                        <NuxtImg class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" src="/women_dress.webp" alt="women's dress" /></div>
+
+                      <div class="mt-6 flex-shrink-0 sm:mt-0">
+                        <NuxtImg class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" src="/men_2.jpeg" alt="men's dress" /></div>
+                    </div>
+                    <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
+                      <div class="flex-shrink-0">
+                        <NuxtImg class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" src="/bangel_1.webp" alt="Bangel" /></div>
+
+                      <div class="mt-6 flex-shrink-0 sm:mt-0">
+                        <NuxtImg class="h-64 w-64 rounded-lg object-cover md:h-72 md:w-72" src="/laptop_images.jpeg" alt="Laptop" /></div>
                     </div>
                   </div>
                 </div>
@@ -59,11 +196,41 @@
             </div>
           </div>
         </div>
-      </main>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
+      </section>
+    </main>
+  </div>
+</template>
+
+<script setup lang="ts">
+
+const favorites = [
+  {
+    id: 1,
+    name: "Women's cloth",
+    price: '$32',
+    href: `/category?category=women's clothing`,
+    imageSrc: '/women_3.jpeg',
+    imageAlt: "Women's cloth",
+  },
+  {
+    id: 2,
+    name: "Men's cloth",
+    price: '$32',
+    href: `/category?category=men's clothing`,
+    imageSrc: '/men_3.jpg',
+    imageAlt: "Men's cloth",
+  },
+  {
+    id: 3,
+    name: 'Diamond Ring',
+    price: '$36',
+    href: '/category?category=jewelery',
+    imageSrc: '/ring.jpg',
+    imageAlt:
+      "Diamond Ring",
+  },
+]
 
 
-  </script>
+
+</script>
