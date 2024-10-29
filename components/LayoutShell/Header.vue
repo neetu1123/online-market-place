@@ -10,6 +10,7 @@
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <NuxtLink to="/" class="text-white px-3 py-2 hover:bg-gray-700 hover:text-white rounded-md text-sm font-medium">Home</NuxtLink>
+              <NuxtLink to="/product" class="text-white px-3 py-2 hover:bg-gray-700 hover:text-white rounded-md text-sm font-medium">Product</NuxtLink>
              <!-- Profile dropdown -->
              <Menu as="div" class="relative flex-shrink-0 z-10">
               <div>
@@ -108,8 +109,8 @@
     <DisclosurePanel class="lg:hidden">
       <div class="px-2 pt-2 pb-3 space-y-1">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <DisclosureButton as="a" href="/" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Home</DisclosureButton>
-        <DisclosureButton as="a" href="/add-new" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Add Porduct</DisclosureButton>
+        <NuxtLink  to="/" ><DisclosureButton class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</DisclosureButton></NuxtLink>
+        <NuxtLink  to="/product" ><DisclosureButton  class=" text-white block px-3 py-2 rounded-md text-base font-medium">Product</DisclosureButton></NuxtLink>
         <DisclosurePanel  as="a"  class="text-gray-300 hover:bg-gray-700 flex justify-between hover:text-white  px-3 py-2 rounded-md text-base font-medium cursor-pointer" @click="isCatergoryMenu = !isCatergoryMenu">
           Category
           <ChevronDownIcon
@@ -120,13 +121,16 @@
         <div v-if="isCatergoryMenu">
           <DisclosureButton
           v-for="(category, index) in categories"
-         
           :key="index"
-          as="a"
-          class="block capitalize text-left rounded-lg py-2 pl-6 pr-3 text-sm font-medium tracking-wide text-white hover:text-black hover:bg-white"
-          :href="`/category?category=${category}`"
+          class="block py-1"
+          >
+          <NuxtLink 
+           :to='`/category?category=${category}`'
+          class=" capitalize text-left rounded-lg py-2 pl-6 pr-3 text-sm font-medium tracking-wide text-white hover:text-black hover:bg-white"
+          
           >
           {{category}}
+        </NuxtLink>
         </DisclosureButton>
       </div>
             
@@ -155,17 +159,15 @@
         <div class="mt-3 px-2 space-y-1">
           <DisclosureButton
           v-if="user" 
-          as="a"
-          href="/admin" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+         class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
           >
-            Admin
+           <NuxtLink to="/admin"> Admin</NuxtLink>
           </DisclosureButton>
           <DisclosureButton
           v-if="!user" 
-          as="a"
-          href="/log-in" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+          class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
           >
-            Log in
+           <NuxtLink to="/log-in"> Log in</NuxtLink>
           </DisclosureButton>
           <DisclosureButton
           v-else

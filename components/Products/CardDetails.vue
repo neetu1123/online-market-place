@@ -36,13 +36,13 @@
                     <StarIcon
                       v-for="rating in [0, 1, 2, 3, 4]"
                       :key="rating"
-                      :class="[productDetails.rating.rate > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0']"
+                      :class="[productDetails.rating && productDetails?.rating.rate > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0']"
                       aria-hidden="true"
                     />
                   </div>
                   <p class="sr-only">{{ reviews.average }} out of 5 stars</p>
                 </div>
-                <p class="ml-2 text-sm text-gray-500">{{ productDetails.rating.count }} reviews</p>
+                <p class="ml-2 text-sm text-gray-500">{{ productDetails?.rating?.count }} reviews</p>
               </div>
             </div>
           </div>

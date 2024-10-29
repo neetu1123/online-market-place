@@ -29,11 +29,12 @@ export interface ProductDetail{
     description: string;
     image: string;
     category: string;
-    reviewCount?: string;
-    rating: {
+    rating?: {
         rate: number,
         count: number
-    }
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
 }
 
 export interface Cart {

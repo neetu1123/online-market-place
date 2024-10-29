@@ -1,6 +1,7 @@
 
 type method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' ;
-export async  function fetchAPI(url: string, method?: method, data?: null) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async  function fetchAPI(url: string, method?: method, data?: null | any) {
     const options = {
         method, // GET, POST, PUT, DELETE
         headers: {
@@ -45,6 +46,7 @@ function parseJwt (token: string) {
 
     return JSON.parse(jsonPayload); // Parse and return the token's payload
   } catch (error) {
+    console.log(error)
     onFailure('Invalid token')
     return null;
   }

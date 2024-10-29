@@ -101,7 +101,7 @@
   onMounted(async () => {
     if (route.path.includes('edit') && userId) {
       isEditMode.value = true;
-      await fetchUserData(userId);
+      await fetchUserData(userId as string);
     }
   });
   
@@ -116,7 +116,19 @@
   
   async function handleUserSubmit() {
     const { onFailure, onSuccess } = useShowSnackbar();
-    const body = { /*...populate as before...*/ };
+    const body = {
+        ...(user.value.email && {email: user.value.email}),
+        ...(user.value.username && {username: user.value.username}),
+        ...(user.value.name.firstname && {firstname:user.value.name.firstname}),
+        ...(user.value.name.lastname && { lastname: user.value.name.lastname}),
+        ...(user.value.address.city && {city: user.value.address.city}),
+        ...(user.value.address.street && {street: user.value.address.street}),
+        ...(user.value.address.number && {number: user.value.address.number}),
+        ...(user.value.address.zipcode && {zipcode: user.value.address.zipcode}),
+        ...(user.value.address.geolocation?.lat && {lat: user.value.address.geolocation.lat}),
+        ...(user.value.address.geolocation?.long && {long: user.value.address.geolocation.long}),
+        ...(user.value.phone && {phone: user.value.phone}),
+         }
   
     try {
       const url = isEditMode.value
