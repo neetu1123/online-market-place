@@ -12,7 +12,7 @@
         <p class="text-gray-500 mb-6">Looks like you haven’t added any items to your cart yet.</p>
         
         <!-- Browse Button -->
-        <NuxtLink href="/" class="bg-blue-500 text-white font-medium py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
+        <NuxtLink href="/product" class="bg-blue-500 text-white font-medium py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
             Start Shopping
         </NuxtLink>
     </div>

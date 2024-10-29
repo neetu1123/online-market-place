@@ -82,7 +82,7 @@ async function submitForm() {
   const userAuth = await userStore.authentication(formData.value)
   if (userAuth) {
     onSuccess('Logged in successfully!')
-    return navigateTo('/')
+    return navigateTo('/admin')
   } else
     onFailure('Please log in with correct username or password !')
 }
