@@ -5,7 +5,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   plugins: ["~/plugins/snackbar"],
-  modules: ["@pinia/nuxt", '@nuxt/image','nuxt-snackbar'],
+  modules: [
+    "@pinia/nuxt",
+    '@nuxt/image',
+    'nuxt-snackbar',
+    '@nuxt/eslint',
+  ],
   snackbar: {
     top: true,
     right: true,

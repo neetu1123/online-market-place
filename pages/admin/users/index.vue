@@ -1,6 +1,7 @@
 <template>
   <div class="px-4 sm:px-6 my-12 lg:my-20 mx-2 lg:px-8 lg:mx-32">
-    <div class="sm:flex sm:items-center">
+  
+    <div v-if="userList.length" class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-gray-900">Users</h1>
         <p class="mt-2 text-sm text-gray-700">A list of all the users in your account including their name, username, email and phone no.</p>
@@ -14,7 +15,21 @@
        
       </div>
     </div>
-    <div class="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
+    <div v-if="!userList.length" class="flex flex-col items-center justify-center h-[50vh]">
+    <div class="text-gray-500 tracking-wide space-y-5">
+      <div class="flex justify-center items-center space-x-4">
+        <span
+          class="block animate-spin border-t-2 h-20 w-20 border-l-2 border-b-2 border-r-2 border-t-primary-light rounded-full border-gray-300"
+          
+        />
+      </div>
+      <div class="flex flex-col items-center animate-pulse">
+        <p>Please wait.</p>
+        <p>It'll just take a moment.</p>
+      </div>
+    </div>
+  </div>
+    <div v-else class="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
       <table class="min-w-full divide-y divide-gray-300">
         <thead class="bg-gray-50">
           <tr>
@@ -48,7 +63,8 @@
               >
             </td>
             <td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-              <button  class="text-red-400 hover:text-red-600"
+              <button
+              class="text-red-400 hover:text-red-600"
               @click="deleteUser(person.id)"
                 >Delete<span class="sr-only">, {{ person.name }}</span></button
               >
@@ -61,23 +77,35 @@
 </template>
 <script setup lang="ts">
 import { fetchAPI } from '~/composables/useFetchAPI';
-const userList = ref([])
-const {onFailure, onSuccess} = useShowSnackbar()
+import type { UserList } from '~/types/users';
+
+
+const userList = ref<UserList[]>([])
+const {onFailure, onSuccess} = useShowSnackbar();
+
+/**
+ * Function for fetch users list
+ */
 async function fetchUserList() {
-    try{
-        const response = await fetchAPI('https://fakestoreapi.com/users');
-   userList.value = response
-   console.log(response)
+const USER_API = `https://fakestoreapi.com/users`
+  try{
+    const response = await fetchAPI(USER_API);
+    userList.value = response
     }
   catch(error) {
-    const {message} = error
-    onFailure(message)
+    onFailure('Unable to fetch users list!');
+    throw error;
   }
 }
-function deleteUser(userId) {
+/**
+ * Function for delete user item list
+ * @param userId 
+ */
+function deleteUser(userId: string) {
   userList.value = userList.value.filter(user => user.id !== userId);
   onSuccess('Successfully deleted ')
 }
+
 onMounted(async() => {
    await fetchUserList()
 })

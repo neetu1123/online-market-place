@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white">
-    <div v-if="!cart.length" class="flex flex-col items-center justify-center h-[500px] ">
-    <div  class="flex flex-col items-center bg-white shadow-lg rounded-lg p-8 w-80 text-center">
+    <div v-if="!cart.length" class="flex flex-col items-center justify-center h-[600px] ">
+    <div  class="flex flex-col items-center bg-white shadow-xl rounded-lg p-8 sm:w-[450px] text-center">
         <!-- Shopping Cart Icon -->
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l3.6-7H6.4L7 13zm0 0L5 6H3m3 7l1 5m4-5v5m6-5v5M6 6h.01M16 6h.01M9 16h6" />
@@ -26,32 +26,34 @@
                   <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
                   <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
                       <li v-for="(item, productIdx) in cart" :key="productIdx" class="flex py-6 sm:py-10">
-                          <div class="flex-shrink-0"> <img :src="item.product.image" :alt="item.product.imageAlt" class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48" /> </div>
+                          <div class="flex-shrink-0"> <img :src="item.product.image" :alt="item.product.imageAlt" class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48" > </div>
                           <div class="ml-4 flex-1 flex flex-col justify-between sm:ml-6">
                               <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                                   <div>
                                       <div class="flex justify-between">
-                                          <h3 class="text-sm"> <a :href="item.product.href" class="font-medium text-gray-700 hover:text-gray-800"> {{ item.product.title }} </a> </h3>
+                                          <h3 class="text-sm"> <a class="font-medium text-gray-700 hover:text-gray-800"> {{ item.product.title }} </a> </h3>
                                       </div>
-                                      <div class="mt-1 flex text-sm">
-                                      </div>
-                                      <p class="mt-1 text-sm font-medium text-gray-900">{{ item.product.price }}</p>
+                                      <div class="mt-1 flex text-sm"/>
+                                      <p class="mt-1 text-sm font-medium text-gray-900">${{ item.product.price }}</p>
                                   </div>
                                   <div class="mt-4 sm:mt-0 sm:pr-9"> <label :for="`quantity-${productIdx}`" class="sr-only">Quantity, {{ item.product.title }}</label>
-                                     <div :id="`quantity-${productIdx}`"  :name="`quantity-${productIdx}`"
+                                     <div
+                                    :id="`quantity-${productIdx}`"  :name="`quantity-${productIdx}`"
                                      class=" text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                  <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                                   <button type="button" 
+                                   <button
+                                   type="button" 
                                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                                   @click="subProduct(item.product.id)"
+                                   @click="subQuantity(item.product.id)"
                                    >
                                      <span class="sr-only">Previous</span>
                                      <MinusIcon class="h-5 w-5" aria-hidden="true" />
                                    </button>
                                    <span class="flex items-center border-t border px-3">  {{ item.quantity }}</span>
                                   
-                                   <button type="button" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                                   @click="addProduct(item.product.id)"
+                                   <button
+                                   type="button" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+                                   @click="addQuantity(item.product.id)"
                                    >
                                      <span class="sr-only">Next</span>
                                      <PlusIcon class="h-5 w-5" aria-hidden="true" />
@@ -60,7 +62,8 @@
                                                                    
                                   </div>
                                       <div class="absolute top-0 right-0"> 
-                                        <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"
+                                        <button
+                                        type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"
                                         @click="deleteHandler(item.product.id)"
                                         > <span class="sr-only">Remove</span>
                                               <XMarkIcon class="h-5 w-5" aria-hidden="true" />
@@ -99,15 +102,23 @@ const {cart} = storeToRefs(cartStore);
    return totalAmount
  })
 
-
-function addProduct(id) {
+/**
+ * Functuion for add quantity
+ */
+function addQuantity(id: string) {
   cartStore.increaseQuantity(id);
 }
-function subProduct(id) {
+/**
+ * Function for sub quantity
+ */
+function subQuantity(id: string) {
   cartStore.decreaseQuantity(id);
 }
-
-function deleteHandler(id) {
+/**
+ * Function for delete
+ * @param id 
+ */
+function deleteHandler(id: string) {
     cartStore.deleteCartItem(id)
 }
 

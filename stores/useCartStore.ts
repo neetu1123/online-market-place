@@ -1,14 +1,20 @@
 import { defineStore } from "pinia";
+import type { Cart } from "~/types/products";
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
-    cart: [],
+    cart: [] as Cart[],
     cartId: null,
   }),
   /**
    * ==========================================gettters====================================
    */
   getters: {
+    /**
+     * Funtion for get cart item length
+     * @param state 
+     * @returns 
+     */
     getCartItems(state) {
       return state.cart.length
     },
@@ -18,7 +24,11 @@ export const useCartStore = defineStore('cart', {
    * ============================================ settter ==================================
    */
   actions: {
-    createCart(products) {
+    /**
+     * Function for create and add the item to cart
+     * @param products 
+     */
+    createCart(products: Cart) {
       const { onSuccess} = useShowSnackbar()
       if (!this.cart.length) {
         this.cart.push(products);
@@ -36,14 +46,21 @@ export const useCartStore = defineStore('cart', {
         }
       }
     },
-    increaseQuantity(productId) {
+    /**
+     * Function for increase the quantity
+     * @param productId 
+     */
+    increaseQuantity(productId: string) {
       const product = this.cart.find(item => item.product.id === productId);
       if (product) {
         product.quantity += 1;
       }
     },
-    
-    decreaseQuantity(productId) {
+    /**
+     * Function for decarse the quantity
+     * @param productId 
+     */
+    decreaseQuantity(productId: string) {
       const product = this.cart.find(item => item.product.id === productId);
       if (product && product.quantity > 1) {
         product.quantity -= 1;
@@ -51,7 +68,11 @@ export const useCartStore = defineStore('cart', {
         this.cart = this.cart.filter(item => item.product.id !== productId);
       }
     },
-    deleteCartItem(productId) {
+    /**
+     * Function for delete cart item
+     * @param productId 
+     */
+    deleteCartItem(productId: string) {
       const { onSuccess} = useShowSnackbar()
      this.cart = this.cart.filter(item => item.product.id !== productId);
      onSuccess('Successfully Item Deletded')

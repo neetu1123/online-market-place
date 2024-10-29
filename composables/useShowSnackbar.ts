@@ -4,6 +4,7 @@
  */
 
 export default function useShowSnackbar() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const $snackbar = useNuxtApp().$snackbar as any;
   
     /**

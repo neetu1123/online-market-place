@@ -1,8 +1,7 @@
-import { USER_API } from '@/types/users';
-import { User_Api } from '~/api/userAPI';
 import { defineStore } from "pinia";
 import { fetchAPI } from '~/composables/useFetchAPI';
 import { Auth_API } from '~/api/authAPI';
+import type {FormData} from "@/types/users"
 
 
 export const useUserStore = defineStore('user', {
@@ -19,7 +18,13 @@ export const useUserStore = defineStore('user', {
    * ============================================ settter ==================================
    */
   actions: {
-     async authentication(userData) {
+    /**
+     * Function for post username , password
+     * @param userData 
+     * @returns 
+     */
+     async authentication(userData: FormData) {
+      const{onFailure} = useShowSnackbar()
       try {
         const {url, method} = Auth_API.Post.auth
           const response=await fetchAPI(url, method, userData);
@@ -28,6 +33,7 @@ export const useUserStore = defineStore('user', {
           this.token = token;
          return  response;
       }catch(error) {
+        onFailure('Login failed')
         throw error;
       }
   },

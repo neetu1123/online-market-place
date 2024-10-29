@@ -7,7 +7,6 @@
             <div class="box-content py-2 relative">
               <div
                 class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-2"
-               
               >
                 <a
                   v-for="category in categories"
@@ -20,7 +19,7 @@
                       :src="category.imageSrc"
                       alt=""
                       class="w-full h-full object-center object-cover"
-                    />
+                    >
                   </span>
                   <span
                     aria-hidden="true"
@@ -35,11 +34,7 @@
           </div>
         </div>
   
-        <div class="mt-6 px-4 sm:hidden">
-          <a href="#" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-            Browse all categories<span aria-hidden="true"> &rarr;</span>
-          </a>
-        </div>
+        
       </div>
     </div>
   </template>
@@ -48,13 +43,8 @@
   const categories = [
     {
       name: 'Our Products',
-      href: '/',
+      href: '/admin/product',
       imageSrc: '/women.png',
-    },
-    {
-      name: 'Categories',
-      href: '/category',
-      imageSrc: '/menand women.webp',
     },
     {
       name: 'User panel',
@@ -62,6 +52,4 @@
       imageSrc: '/user.jpg',
     },
   ]
-  
- 
   </script>
